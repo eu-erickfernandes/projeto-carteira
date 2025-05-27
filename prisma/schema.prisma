@@ -1,0 +1,63 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id        String      @id @default(cuid())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  creditCard CreditCard?
+  transactions Transaction[]
+  
+  name      String
+}
+
+model CreditCard {
+  id        String      @id @default(cuid())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  account   Account @relation(fields: [accountId], references: [id])
+  accountId String @unique
+
+  expiresAt    DateTime
+  limit     Decimal
+}
+
+model Transaction {
+  id        String      @id @default(cuid())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  account   Account @relation(fields: [accountId], references: [id])
+  accountId String
+  // transactionCategory TransactionCategory @relation(fields: [transactionCategoryId], references: [id])
+  // transactionCategoryId String
+
+  ammount    Decimal
+  date      DateTime
+  description String
+}
+
+// model TransactionCategory {
+//   id        String      @id @default(cuid())
+
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+
+//   transactions Transaction[]
+
+//   name      String
+// }
