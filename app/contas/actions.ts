@@ -1,24 +1,24 @@
-// 'use server';
+'use server';
 
-// import { revalidatePath } from "next/cache";
-// import { createAccount, getAccount } from "./data-access/account";
+import { revalidatePath } from "next/cache";
+import { createAccount, getAccount } from "../data-access/account";
 // import { createCreditCard } from "./data-access/creditCard";
 // import { connect } from "http2";
 // import { create } from "domain";
 // import { createTransaction } from "./data-access/transaction";
 // import { Decimal } from "@prisma/client/runtime/library";
 
-// export async function createAccountAction(formData: FormData){
-//     console.log('ACTION CREATE ACCOUNT');
+export async function createAccountAction(formData: FormData){
+    console.log('ACTION CREATE ACCOUNT');
 
-//     const name = formData.get('name') as string;
+    const name = formData.get('name') as string;
 
-//     await createAccount({
-//         name: name
-//     });
+    await createAccount({
+        name: name
+    });
 
-//     revalidatePath('/');
-// }
+    revalidatePath('/');
+}
 
 // export async function createCreditCardAction(formData: FormData) {
 //     console.log('ACTION CREATE CREDIT CARD');

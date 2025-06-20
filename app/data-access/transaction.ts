@@ -2,7 +2,13 @@ import { Prisma } from "@prisma/client";
 import prisma from "../lib/prisma";
 
 export async function getTransactions() {
-    return await prisma.transaction.findMany({});
+    return await prisma.transaction.findMany({
+        include: {
+            account: true,
+            creditCard: true,
+            transactionCategory: true,
+        }
+    });
 }
 
 export async function createTransaction(transaction: Prisma.TransactionCreateInput) {

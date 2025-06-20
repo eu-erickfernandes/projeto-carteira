@@ -1,210 +1,223 @@
-import Link from "next/link";
-import Form from "next/form";
-import { createAccountAction, createCreditCardAction, createTransactionAction } from "./actions";
-import { getAccount, getAccounts } from "./data-access/account";
-import { getTransactions } from "./data-access/transaction";
-import { getCreditCards } from "./data-access/creditCard";
+export default function Page(){
+    return (
+        <></>
+    );
+}
 
-export default async function Page() {
+// import Link from "next/link";
+// import Form from "next/form";
+// import { createAccountAction, createCreditCardAction, createTransactionAction } from "./actions";
+// import { getAccount, getAccounts } from "./data-access/account";
+// import { getTransactions } from "./data-access/transaction";
+// import { getCreditCards } from "./data-access/creditCard";
 
-  const accounts = await getAccounts();
-  const creditCards = await getCreditCards();
-  const transactions = await getTransactions();
+// export default async function Page() {
 
-  return (
-    <>
-      <h1>Financeiro</h1>
+//   const accounts = await getAccounts();
+//   const creditCards = await getCreditCards();
+//   const transactions = await getTransactions();
 
-      <h2>Contas</h2>
+//   return (
+//     <>
+//       <h1>Financeiro</h1>
 
-      <Link href="/contas/">Contas</Link>
-      <Link href="/contas/adicionar/">Adicionar Conta</Link>
-      <Link href="/cartoes/">Cartões de Crédito</Link>
-      <Link href="/cartoes/cartoes/">Adicionar Cartão de Crédito</Link>
-      <Link href="/movimentacoes/">Movimentações</Link>
-      <Link href="/movimentacoes/adicionar/">Adicionar Movimentação</Link>
+//       <h2>Contas</h2>
 
-      <Form action={ createAccountAction }>
-        <div>
-          <label htmlFor="name">Nome</label>
+//       <Form action={ createAccountAction }>
+//         <div>
+//           <label htmlFor="name">Nome</label>
 
-          <input
-            id="name" 
-            max="50"
-            name="name" 
-            required
-            type="text"
-          />
-        </div>
+//           <input
+//             id="name" 
+//             max="50"
+//             name="name" 
+//             required
+//             type="text"
+//           />
+//         </div>
 
-        <button type="submit">Salvar</button>
-      </Form>
+//         <button type="submit">Salvar</button>
+//       </Form>
 
-      <ul>
-        {accounts.map((account) => (
-          <li key={  account.id  }>
-            <Link href={`/contas/${account.id}`}>
-              <p>{  account.name  }</p>
-            </Link>
-          </li>
-        ))}
+//       <ul>
+//         {accounts.map((account) => (
+//           <li key={  account.id  }>
+//             <Link href={`/contas/${account.id}`}>
+//               <p>{  account.name  }</p>
+//             </Link>
+//           </li>
+//         ))}
 
-        <li>CC Inter</li>
-        <li>Poupança BB</li>
-        <li>Poupança Caixa</li>
-      </ul>
+//         <li>CC Inter</li>
+//         <li>Poupança BB</li>
+//         <li>Poupança Caixa</li>
+//       </ul>
 
-      <h2>Cartões de Crédito</h2>
+//       <h2>Cartões de Crédito</h2>
 
-      <Form action={ createCreditCardAction }>
-        <div>
-          <label htmlFor="name">Nome</label>
+//       <Form action={ createCreditCardAction }>
+//         {/* <div>
+//           <label htmlFor="name">Nome</label>
 
-          <input
-            id="name" 
-            max="50"
-            name="name" 
-            required
-            type="text"
-          />
-        </div>
+//           <input
+//             id="name" 
+//             max="50"
+//             name="name" 
+//             required
+//             type="text"
+//           />
+//         </div> */}
 
-        <div>
-          <label htmlFor="limit">Limite</label>
+//         <div>
+//           <label htmlFor="account">Conta</label>
 
-          <input
-            id="limit" 
-            min="0"
-            name="limit" 
-            required
-            type="number"
-          />
-        </div>
+//           <select
+//             id="account" 
+//             name="account" 
+//             required
+//           >
+//             {accounts.map((account) => (
+//               <option value={ account.id }>{ account.name }</option>
+//             ))}
+//           </select>
+//         </div>
 
-        <div>
-          <label htmlFor="expiresAt">Vencimento</label>
+//         <div>
+//           <label htmlFor="limit">Limite</label>
 
-          <input
-            id="expiresAt" 
-            name="expiresAt" 
-            required
-            type="date"
-          />
-        </div>
+//           <input
+//             id="limit" 
+//             min="0"
+//             name="limit" 
+//             required
+//             type="number"
+//           />
+//         </div>
 
-        <button type="submit">Salvar</button>
-      </Form>
+//         <div>
+//           <label htmlFor="expiresAt">Vencimento</label>
 
-      <ul>
-        {creditCards && creditCards.map((creditCard) => (
-          <li key={ creditCard.id }>
-            <Link href={`/cartoes/${creditCard.id}`}>
-              <p>{ getAccount(creditCard.accountId).then((account) => account?.name) }</p>
-            </Link>
-          </li>
-        ))}
+//           <input
+//             id="expiresAt" 
+//             name="expiresAt" 
+//             required
+//             type="date"
+//           />
+//         </div>
 
-        <li>Cartão Inter</li>
-        <li>Cartão Luiza</li>
-      </ul>
+//         <button type="submit">Salvar</button>
+//       </Form>
 
-      <h2>Investimentos</h2>
+//       <ul>
+//         {creditCards && creditCards.map((creditCard) => (
+//           <li key={ creditCard.id }>
+//             <Link href={`/cartoes/${creditCard.id}`}>
+//               <p>{ getAccount(creditCard.accountId).then((account) => account?.name) }</p>
+//             </Link>
+//           </li>
+//         ))}
 
-      <ul>
-        <li>CDB Resgate Imediato</li>
-        <li>CDB Meu Porquinho</li>
-        <li>CDB Mais Limite</li>
-        <li>FI Inter FIC FIRF</li>
-        <li>Tesouro IPCA 2029</li>
-      </ul>
+//         <li>Cartão Inter</li>
+//         <li>Cartão Luiza</li>
+//       </ul>
 
-      <h2>Movimentações</h2>
+//       <h2>Investimentos</h2>
 
-      <Form action={ createTransactionAction }>
-        <div>
-          <label htmlFor="account">Conta</label>
+//       <ul>
+//         <li>CDB Resgate Imediato</li>
+//         <li>CDB Meu Porquinho</li>
+//         <li>CDB Mais Limite</li>
+//         <li>FI Inter FIC FIRF</li>
+//         <li>Tesouro IPCA 2029</li>
+//       </ul>
 
-          <select name="account" id="account" required>
-            {accounts.map((account) => (
-              <option key={ account.id } value={ account.id }>
-                { account.name }
-              </option>
-            ))}
-          </select>
-        </div>
+//       <h2>Movimentações</h2>
 
-        <div>
-          <label htmlFor="description">Descrição</label>
+//       <Form action={ createTransactionAction }>
+//         <div>
+//           <label htmlFor="account">Conta</label>
+
+//           <select name="account" id="account" required>
+//             {accounts.map((account) => (
+//               <option key={ account.id } value={ account.id }>
+//                 { account.name }
+//               </option>
+//             ))}
+//           </select>
+//         </div>
+
+//         <div>
+//           <label htmlFor="description">Descrição</label>
           
-          <input
-            id="description" 
-            max="50"
-            name="description" 
-            required
-            type="text"
-          />
-        </div>
+//           <input
+//             id="description" 
+//             max="50"
+//             name="description" 
+//             required
+//             type="text"
+//           />
+//         </div>
 
-        <div>
-          <label htmlFor="ammount">Valor</label>
+//         <div>
+//           <label htmlFor="ammount">Valor</label>
           
-          <input
-            id="ammount" 
-            min="0"
-            name="ammount" 
-            required
-            type="number"
-          />
-        </div>
+//           <input
+//             id="ammount" 
+//             min="0"
+//             name="ammount" 
+//             required
+//             type="number"
+//           />
+//         </div>
 
-        <div>
-          <label htmlFor="date">Data</label>
+//         <div>
+//           <label htmlFor="date">Data</label>
 
-          <input
-            id="date" 
-            name="date" 
-            required
-            type="date"
-          />
-        </div>
+//           <input
+//             id="date" 
+//             name="date" 
+//             required
+//             type="date"
+//           />
+//         </div>
 
-        <button type="submit">Salvar</button>
-      </Form>
+//         <button type="submit">Salvar</button>
+//       </Form>
 
-      <ul>
-        {transactions && transactions.map((transaction) => (
-          <li key={ transaction.id }>
-            <Link href={`/cartoes/${transaction.id}`}>
-              <p>{ transaction.description }</p>
-              <p>{ transaction.ammount.toString() }</p>
-              <p>{ getAccount(transaction.accountId).then((account) => account?.name) }</p>
-            </Link>
-          </li>
-        ))}
+//       <ul>
+//         {transactions && transactions.map((transaction) => (
+//           <li key={ transaction.id }>
+//             <Link href={`/cartoes/${transaction.id}`}>
+//               <p>{ transaction.description }</p>
+//               <p>{ transaction.ammount.toString() }</p>
+//               <p>{ getAccount(transaction.accountId).then((account) => account?.name) }</p>
+//             </Link>
+//           </li>
+//         ))}
 
         
-        <li>
-          <p>Araújo</p>
-          <p>R$ 50,00</p>
-          <p>CC Inter</p>
-        </li>
-      </ul>
+//         <li>
+//           <p>Araújo</p>
+//           <p>R$ 50,00</p>
+//           <p>CC Inter</p>
+//         </li>
+//       </ul>
 
-      <h2>Objetivos</h2>
+//       <h2>Objetivos</h2>
 
-      <ul>
-        <li>
-          <p>Viagem</p>
-          <p>Saldo: R$ 600,00</p>
-          <p>Objetivo: R$ 5000,00</p>
-        </li>
+//       <ul>
+//         <li>
+//           <p>Viagem</p>
+//           <p>Saldo: R$ 600,00</p>
+//           <p>Objetivo: R$ 5000,00</p>
+//         </li>
 
-        <li>
-          <p>Fundo de Emergência</p>
-          <p>Saldo: R$ 600,00</p>
-          <p>Objetivo: R$ 10.000,00</p>
-        </li>
-      </ul>
-    </>
-  );
-}
+//         <li>
+//           <p>Fundo de Emergência</p>
+//           <p>Saldo: R$ 600,00</p>
+//           <p>Objetivo: R$ 10.000,00</p>
+//         </li>
+//       </ul>
+//     </>
+//   );
+// }

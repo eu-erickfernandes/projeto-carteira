@@ -1,4 +1,9 @@
-// 'use server';
+'use server';
+
+import { revalidatePath } from "next/cache";
+import { getAccount } from "../data-access/account";
+import { createTransaction } from "../data-access/transaction";
+import { createTransactionCategory, getTransactionCategory } from "../data-access/transactionCategory";
 
 // import { revalidatePath } from "next/cache";
 // import { createAccount, getAccount } from "./data-access/account";
@@ -45,21 +50,34 @@
 //     revalidatePath('/');
 // }
 
-// export async function createTransactionAction(formData: FormData){
-//     console.log('ACTION CREATE TRANSACTION');
+export async function createTransactionAction(formData: FormData){
+    console.log('ACTION CREATE TRANSACTION');
 
-//     const account = await getAccount(formData.get('account') as string);
+    const accountId = formData.get('account') as string;
+    const creditCardId = formData.get('creditCard') as string;
+    
+    const categoryId = formData.get('category') as string;
+    const ammount = formData.get('ammount') as string;
+    const date = formData.get('date') as string;
+    const description = formData.get('description') as string;
 
-//     const ammount = formData.get('ammount') as string;
-//     const date = formData.get('date') as string;
-//     const description = formData.get('description') as string;
+    await createTransaction({
+        account: { connect: { id: accountId } },
+        ammount: ammount,
+        date: new Date(date),
+        description: description,
+        transactionCategory: { connect: { id: categoryId } },
+    });
 
-//     await createTransaction({
-//         account: { connect: { id: account?.id } },
-//         ammount: ammount,
-//         date: new Date(date),
-//         description: description,
-//     });
+    revalidatePath('/');
+}
 
-//     revalidatePath('/');
-// }
+export async function createTransactionCategoryAction(formData: FormData){
+    console.log('ACTION CREATE TRANSACTION CATEGORY');
+
+    const name = formData.get('name') as string;
+
+    await createTransactionCategory({
+        name: name
+    });
+}
