@@ -3,8 +3,8 @@ import './globals.css';
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Financeiro",
-  description: "Gerenciamento de movimentações e objetivos",
+  title: "Projeto Carteira",
+  description: "Monitoramento Financeiro",
 };
 
 export default function RootLayout({
@@ -21,7 +21,7 @@ export default function RootLayout({
           <menu>
             <li><Link href="/contas/">Contas</Link></li>
             <li><Link href="/cartoes/">Cartões de Crédito</Link></li>
-            <li><Link href="/movimentacoes/">Movimentações</Link></li>
+            <li><Link href="/transacoes/">Transações</Link></li>
             {/* <li><Link href="/contas/adicionar/">Adicionar Conta</Link></li>
             <li><Link href="/cartoes/cartoes/">Adicionar Cartão de Crédito</Link></li>
             <li><Link href="/movimentacoes/adicionar/">Adicionar Movimentação</Link></li> */}

@@ -12,15 +12,15 @@ export default async function Page(){
 
             <Form action={ createAccountAction }>
                 <div>
-                <label htmlFor="name">Nome</label>
+                    <label htmlFor="name">Nome</label>
 
-                <input
-                    id="name" 
-                    max="50"
-                    name="name" 
-                    required
-                    type="text"
-                />
+                    <input
+                        id="name" 
+                        max="50"
+                        name="name" 
+                        required
+                        type="text"
+                    />
                 </div>
 
                 <button type="submit">Salvar</button>

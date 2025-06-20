@@ -37,7 +37,7 @@ export default async function Page(){
                 ))}
             </ul>
             
-            <h2>Movimentações</h2>
+            <h2>Transações</h2>
 
             <Form action={ createTransactionAction }>
                 <div>
@@ -124,13 +124,6 @@ export default async function Page(){
                         <p>{ transaction.ammount.toString() }</p>
                     </li>
                 ))}
-
-                
-                <li>
-                    <p>Araújo</p>
-                    <p>R$ 50,00</p>
-                    <p>CC Inter</p>
-                </li>
             </ul>
         </>
     );
