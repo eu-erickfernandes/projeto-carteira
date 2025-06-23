@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import './reset.css';
 import './globals.css';
 import Link from "next/link";
 
@@ -11,12 +12,16 @@ export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>) { 
+  console.log('🫚 ROOT LAYOUT');
+
   return (
     <html lang="pt-br">
       <body>
         <header>
-          <h1>Projeto Carteira</h1>
+          <Link href="/">
+            <h1>Projeto Carteira</h1>
+          </Link>
 
           <menu>
             <li><Link href="/contas/">Contas</Link></li>

@@ -3,7 +3,7 @@ import { createCreditCardAction } from "./actions";
 import { getAccount, getAccounts } from "../data-access/account";
 import { getCreditCards } from "../data-access/creditCard";
 import Link from "next/link";
-import { valueToCurrency } from "../utils/format";
+import { numberToCurrency } from "../utils/format";
 
 export default async function Page(){
     const accounts = await getAccounts();
@@ -75,7 +75,7 @@ export default async function Page(){
                         <p>{ creditCard.account.name }</p>
                         <p>{ creditCard.closesAt }</p>
                         <p>{ creditCard.expiresAt }</p>
-                        <p>{ valueToCurrency(creditCard.limit) }</p>
+                        <p>{ numberToCurrency(creditCard.limit) }</p>
                     </li>
                 ))}
             </ul>    

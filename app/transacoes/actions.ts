@@ -1,9 +1,9 @@
 'use server';
 
 import { revalidatePath } from "next/cache";
-import { getAccount } from "../data-access/account";
 import { createTransaction } from "../data-access/transaction";
-import { createTransactionCategory, getTransactionCategory } from "../data-access/transactionCategory";
+import { createTransactionCategory } from "../data-access/transactionCategory";
+import { redirect } from "next/navigation";
 
 // import { revalidatePath } from "next/cache";
 // import { createAccount, getAccount } from "./data-access/account";
@@ -54,22 +54,25 @@ export async function createTransactionAction(formData: FormData){
     console.log('ACTION CREATE TRANSACTION');
 
     const accountId = formData.get('account') as string;
-    const creditCardId = formData.get('creditCard') as string;
-    
     const categoryId = formData.get('category') as string;
+    // const creditCardId = formData.get('creditCard') as string;
+    
     const ammount = formData.get('ammount') as string;
     const date = formData.get('date') as string;
     const description = formData.get('description') as string;
+    const type = formData.get('type') as string;
+
+    console.log(formData);
 
     await createTransaction({
         account: { connect: { id: accountId } },
-        ammount: ammount,
-        date: new Date(date),
+        ammount: (type === "expense" ? "-" : "") + ammount,
+        date: new Date(date.replace('-', '/')),
         description: description,
         transactionCategory: { connect: { id: categoryId } },
     });
 
-    revalidatePath('/');
+    redirect('/transacoes/');
 }
 
 export async function createTransactionCategoryAction(formData: FormData){

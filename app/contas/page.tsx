@@ -2,8 +2,13 @@ import Form from "next/form";
 import { createAccountAction } from "./actions";
 import Link from "next/link";
 import { getAccounts } from "../data-access/account";
+import { getTransactionsAmmountSumByAccountId } from "../data-access/transaction";
+import { Decimal } from "@prisma/client/runtime/library";
+import { numberToCurrency } from "../utils/format";
 
 export default async function Page(){
+    console.log('📃 PAGE CONTAS');
+
     const accounts = await getAccounts();
 
     return (
@@ -27,14 +32,19 @@ export default async function Page(){
             </Form>
 
             <ul>
-                {accounts.map((account) => (
-                    <li key={  account.id  }>
-                        <Link href={`/contas/${account.id}`}>{  account.name  }</Link>
-                    </li>
-                ))}
-                {/* <li>CC Inter</li>
-                <li>Poupança BB</li>
-                <li>Poupança Caixa</li> */}
+                {accounts.map(async (account) => {
+
+                    const transactionsAmmountSum = (await getTransactionsAmmountSumByAccountId(account.id))._sum.ammount as Decimal;
+
+                    return (
+                        <li key={  account.id  }>
+                            {/* <Link href={`/contas/${account.id}`}>{  account.name  }</Link> */}
+                            <p>{ account.name }</p>
+                            <p>{ numberToCurrency(transactionsAmmountSum) }</p>
+                            {/* <p>{ (await getTransactionsAmmountSumByAccountId(account.id))._sum.ammount?.toString() }</p> */}
+                        </li>
+                    )}
+                )}
             </ul>
         </>
     );
