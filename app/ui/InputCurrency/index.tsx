@@ -1,36 +1,19 @@
 'use client'
 
-import { numberToCurrency } from "@/app/utils/format";
-import { useState } from "react";
+import { currencyMask } from "@/app/lib/mask";
 
 type InputProps = React.InputHTMLAttributes<HTMLElement>
 
-export default function InputCurrency({ ...rest }: InputProps){
-    const [value, setValue] = useState('');
+export default function InputCurrency({ 
+    value, 
+    ...rest 
+}: InputProps){
 
-    const handleChange = (event: any) => {
-        console.log('HANDLE CHANGE');
-
-        setValue(event.target.value);
-        
-        // const currencyValue = new Intl.NumberFormat('pt-br', {
-        //     currency: 'BRL',
-        //     style: 'currency'
-        // }).format(event.target.value / 100);
-
-        // console.log(currencyValue);
-
-        // setValue(currencyValue);
-
-        // const newValue = numberToCurrency(Number(event.target.value / 100));
-        // console.log(newValue);
-
-        // setValue(newValue);
-
-        // setValue();
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        currencyMask(event);
     }
 
     return (
-        <input onChange={ handleChange } type="text" value={ value } { ...rest } />
+        <input onChange={ handleChange } type="text" { ...rest } />
     );
 }
