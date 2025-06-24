@@ -3,7 +3,6 @@ import { createTransactionAction } from "../actions";
 import { getAccounts } from "@/app/data-access/account";
 import { getCreditCards } from "@/app/data-access/creditCard";
 import { getTransactionCategorys } from "@/app/data-access/transactionCategory";
-import Input from "@/app/ui/Input";
 import InputCurrency from "@/app/ui/InputCurrency";
 
 export default async function Page(){
@@ -86,19 +85,6 @@ export default async function Page(){
                         type="text"
                     />
                 </div>
-
-                {/* <div>
-                    <label htmlFor="ammount">Valor</label>
-                    
-                    <input
-                        defaultValue="10"
-                        id="ammount" 
-                        min="0"
-                        name="ammount" 
-                        required
-                        type="number"
-                    />
-                </div> */}
 
                 <div>
                     <label htmlFor="ammount">Valor</label>

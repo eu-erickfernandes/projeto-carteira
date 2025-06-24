@@ -34,14 +34,12 @@ export default async function Page(){
             <ul>
                 {accounts.map(async (account) => {
 
-                    const transactionsAmmountSum = (await getTransactionsAmmountSumByAccountId(account.id))._sum.ammount as Decimal;
+                    const transactionsAmmountSum = (await getTransactionsAmmountSumByAccountId(account.id))._sum.ammount as Decimal || 0;
 
                     return (
                         <li key={  account.id  }>
-                            {/* <Link href={`/contas/${account.id}`}>{  account.name  }</Link> */}
                             <p>{ account.name }</p>
                             <p>{ numberToCurrency(transactionsAmmountSum) }</p>
-                            {/* <p>{ (await getTransactionsAmmountSumByAccountId(account.id))._sum.ammount?.toString() }</p> */}
                         </li>
                     )}
                 )}
